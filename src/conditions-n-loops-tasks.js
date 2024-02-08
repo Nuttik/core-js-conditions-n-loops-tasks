@@ -494,7 +494,8 @@ function shuffleChar(str, iterations) {
   while (str[strLength] || str[strLength] === 0) {
     strLength += 1;
   }
-  let count = (iterations % strLength) / 2;
+  let count =
+    iterations > strLength ? iterations % (strLength - 1) : iterations;
   count -= 1;
   let start = '';
   let end = '';
