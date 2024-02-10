@@ -490,31 +490,50 @@ function sortByAsc(arr) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(str, iterations) {
-  let strLength = 0;
-  while (str[strLength] || str[strLength] === 0) {
-    strLength += 1;
+  let newStr = str;
+  let count = 0;
+  const cashe = [];
+
+  if (iterations === 0) {
+    return str;
   }
-  let count;
-  if (strLength % 2 === 0) {
-    count = iterations > strLength ? iterations % (strLength - 2) : iterations;
-  } else {
-    count = iterations > strLength ? iterations % (strLength - 1) : iterations;
-  }
-  count -= 1;
-  let start = '';
-  let end = '';
-  for (let i = 0; i < strLength; i += 1) {
-    if (i % 2 === 0 || i === 0) {
-      start += str[i];
-    } else {
-      end += str[i];
+
+  if (str.length % 2 === 0) {
+    if (iterations % (str.length - 2) === 0) {
+      return str;
     }
   }
-  const newStr = start + end;
-  if (count !== 0) {
-    return shuffleChar(newStr, count);
+
+  if (str.length % 2 === 1) {
+    if (iterations % (str.length - 1) === 0) {
+      return str;
+    }
   }
-  return newStr;
+
+  while (true) {
+    count += 1;
+    let start = '';
+    let end = '';
+    for (let i = 0; i < newStr.length; i += 1) {
+      if (i % 2 === 0 || i === 0) {
+        start += newStr[i];
+      } else {
+        end += newStr[i];
+      }
+    }
+    newStr = start + end;
+
+    if (count === iterations) {
+      return newStr;
+    }
+    if (newStr === str) {
+      cashe[cashe.length] = newStr;
+      break;
+    }
+    cashe[cashe.length] = newStr;
+  }
+
+  return cashe[(iterations % cashe.length) - 1];
 }
 
 /**
