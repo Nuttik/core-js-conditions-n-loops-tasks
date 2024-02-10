@@ -510,7 +510,8 @@ function shuffleChar(str, iterations) {
     }
   }
 
-  while (true) {
+  let doWhile = true;
+  while (doWhile) {
     count += 1;
     let start = '';
     let end = '';
@@ -528,6 +529,7 @@ function shuffleChar(str, iterations) {
     }
     if (newStr === str) {
       cashe[cashe.length] = newStr;
+      doWhile = false;
       break;
     }
     cashe[cashe.length] = newStr;
@@ -535,7 +537,6 @@ function shuffleChar(str, iterations) {
 
   return cashe[(iterations % cashe.length) - 1];
 }
-
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
  * If there is no such number, it returns the original number.
